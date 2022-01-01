@@ -13,7 +13,7 @@ function getCombination(arr, n){
 
 function isPrime(sum){
     if(sum % 2 === 0) return false;
-    for(let i=2; i<sum; i++)
+    for(let i=3; i<sum; i++)
         if(sum % i === 0) return false;
     return true;
 }
