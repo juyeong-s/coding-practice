@@ -9,7 +9,6 @@ function solution(n, wires) {
     }
     
     function calculate(node1, node2){
-        let cnt = 0;
         const visited = [node1];
         const needVisit = [node1];
         
@@ -21,9 +20,8 @@ function solution(n, wires) {
                     needVisit.push(el);
                 }
             }
-            cnt++;
         }
-        return cnt;
+        return visited.length;
     }
     
     let answer = Infinity;
