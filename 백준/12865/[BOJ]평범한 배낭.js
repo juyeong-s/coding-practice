@@ -1,11 +1,11 @@
 function solution(N, K, arr){
-    const memo = Array.from({ length: N + 1 }, () => Array(K + 1).fill(0));
+    const knapsack = Array.from({ length: N + 1 }, () => Array(K + 1).fill(0));
     for(let n = 1; n < N + 1; n++){
         for(let k = 1; k < K + 1; k++){
-            memo[n][k] = arr[n-1][0] > k ? memo[n - 1][k] : Math.max(memo[n - 1][k - arr[n-1][0]] + arr[n-1][1], memo[n-1][k]);
+            knapsack[n][k] = arr[n-1][0] > k ? knapsack[n - 1][k] : Math.max(knapsack[n - 1][k - arr[n-1][0]] + arr[n-1][1], knapsack[n-1][k]);
         }
     }
-    return memo[N][K];
+    return knapsack[N][K];
 }
 
 const filePath = process.platform === 'linux'? '/dev/stdin' : '백준/12865/testcase.txt';
