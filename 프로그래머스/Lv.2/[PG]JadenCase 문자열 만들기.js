@@ -1,3 +1,4 @@
+// 첫 풀이
 function solution(s) {
     let arr = s.split(' ');
     for(let i = 0; i < arr.length; i++){
@@ -10,4 +11,9 @@ function solution(s) {
         }
     }
     return arr.join(' ');
+}
+
+// 리팩토링 풀이
+function solution(s) {
+    return s.split(' ').map(v => v.charAt(0).toUpperCase() + v.substring(1).toLowerCase()).join(' ');
 }
