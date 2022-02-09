@@ -49,6 +49,9 @@ function solution(word) {   // 플이 3
             getWords(`${vowel}${next}`, depth + 1);
         }
     }
-    for(const vowel of dict) getWords(vowel, 1);
+    for(const vowel of dict) {
+        getWords(vowel, 1);
+        if(words.indexOf(word) !== -1) break;
+    }
     return words.indexOf(word) + 1;
 }
