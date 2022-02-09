@@ -38,3 +38,17 @@ function solution(word) {   // 풀이 2
     }
     return answer;
 }
+
+function solution(word) {   // 플이 3
+    const dict = ['A', 'E', 'I', 'O', 'U'];
+    const words = [];
+    function getWords(vowel, depth){
+        if(depth === 6) return;
+        words.push(vowel);
+        for(const next of dict){
+            getWords(`${vowel}${next}`, depth + 1);
+        }
+    }
+    for(const vowel of dict) getWords(vowel, 1);
+    return words.indexOf(word) + 1;
+}
