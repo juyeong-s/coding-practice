@@ -15,12 +15,12 @@ function solution(tickets) {
                 answer.push(airport);
                 if(dfs(tickets[i][1], depth - 1)) return true;
                 visited[i] = false; 
-            } 
+            }
         }
         answer.pop();
         return false;
     }
 
-    dfs("ICN", tickets.length);
+    dfs('ICN', tickets.length);
     return answer;
 }
