@@ -23,7 +23,7 @@ function solution(key, lock) {
         const row = board.length, col = board[0].length;
         for(let i = 0; i <= row - N; i++){
             for(let j = 0; j <= col - keyCol; j++){
-                const copyLock = board.map((el) => el.slice());
+                const copyLock = board.map((el) => el.slice()); // undefined빼고 자르기
                 for(let k = 0; k < N; k++){
                     for(let z = 0; z < N; z++){
                         if(copyLock[i + k][j + z] === 1 && key[k][z] === 1) copyLock[i + k][j + z] = 2;
