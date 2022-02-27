@@ -17,10 +17,10 @@ function solution(n, s, a, b, fares) {
     }
     floydWarshall();
     
-    let min = Infinity;
+    let answer = Infinity;
     for(let i = 0; i < n; i++){
         let sum = graph[s-1][i] + graph[i][a-1] + graph[i][b-1];
-        min = Math.min(min, sum);
+        answer = Math.min(answer, sum);
     }
-    return min;
+    return answer;
 }
