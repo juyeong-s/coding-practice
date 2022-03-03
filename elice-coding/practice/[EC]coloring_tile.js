@@ -30,7 +30,10 @@ function coloring(start, N, M){
     for(let j = 0; j < M - 1; j++){
         if(board[i][j]) {
           if(board[i][j+1] && board[i+1][j] && board[i+1][j+1]) {
-            visited.add(`${i}${j}`).add(`${i}${j+1}`).add(`${i+1}${j}`).add(`${i+1}${j+1}`);
+            visited.add(`${i}${j}`)
+              .add(`${i}${j+1}`)
+              .add(`${i+1}${j}`)
+              .add(`${i+1}${j+1}`);
             continue;
           }
           else {
