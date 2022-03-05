@@ -8,5 +8,5 @@ function solution(numbers) {
 
 // 다른 사람 풀이
 function solution(numbers) {
-    return 45 - numbers.reduce((cur, acc) => cur + acc, 0);
+    return 45 - numbers.reduce((acc, curr) => acc + cur, 0);
 }
