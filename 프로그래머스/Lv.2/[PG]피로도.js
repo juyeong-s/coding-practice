@@ -33,3 +33,25 @@ function solution(k, dungeons) {
     });
     return answer;
 }
+
+// 다른 사람 풀이
+function solution(k, dungeons) {
+    const N = dungeons.length;
+    const visited = new Array(N).fill(0);
+    let answer = 0;
+
+    function dfs(k, cnt){
+        answer = Math.max(cnt, answer); // cnt는 계속 반영되도록.
+
+        for (let i = 0; i < N; i++){
+            if (!visited[i] && k >= dungeons[i][0]){
+                visited[i] = true;  // 방문 시키고
+                dfs(k - dungeons[i][1], cnt + 1);   // 다음 dfs 호출 후
+                visited[i] = false; // 방문 해제시켜서 다음 i로 dfs를 호출했을때 3->2(거꾸로)로도 방문이 가능하도록 함.
+            }
+        }
+    }
+
+    dfs(k, 0);
+    return answer;
+}
