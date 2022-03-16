@@ -1,23 +1,23 @@
 function solve(h, w){
-    const dx = [0, 0, -1, 1];
-    const dy = [-1, 1, 0, 0];
+    const dx = [1, -1, 0, 0];
+    const dy = [0, 0, -1, 1];
 
     function bfs(i, j){
         const queue = [];
         const visited = Array.from({ length: h }, () => Array(w).fill(0));
         visited[i][j] = 1;
-        queue.push(`${i}${j}`);
+        queue.push([i, j]);
 
-        while(queue.length > 0){
-            const [curX, curY] = queue.shift().split('');
+        while(queue.length){
+            const [curX, curY] = queue.shift();
             for(let k = 0; k < 4; k++){
-                const moveX = +curX + dx[k];
-                const moveY = +curY + dy[k];
+                const moveX = curX + dx[k];
+                const moveY = curY + dy[k];
         
                 if(moveX >= 0 && moveX < h && moveY >= 0 && moveY < w){
                     if(map[moveX][moveY] === 'L' && !visited[moveX][moveY]){
-                        queue.push(`${moveX}${moveY}`);
-                        visited[moveX][moveY] = visited[+curX][+curY] + 1;
+                        queue.push([moveX, moveY]);
+                        visited[moveX][moveY] = visited[curX][curY] + 1;
                     }
                 }
             }
@@ -36,6 +36,6 @@ function solve(h, w){
 
 const filePath = process.platform === 'linux' ? '/dev/stdin' : '백준/gold/2589/testcase.txt';
 const input = require('fs').readFileSync(filePath).toString().trim().split('\n');
-const [H, W] = input.shift().split(' ');
+const [H, W] = input.shift().split(' ').map(Number);
 const map = input.map((row) => row.split(''));
-console.log(solve(+H, +W));
+console.log(solve(H, W));
