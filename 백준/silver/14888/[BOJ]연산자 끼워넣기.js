@@ -1,6 +1,6 @@
 function solve() {
-  let maxAnswer = 0,
-    minAnswer = Infinity;
+  let maxAnswer = -1000000001,
+    minAnswer = 1000000001;
 
   function insert(plus, minus, muti, div, cnt, sum) {
     if (cnt === n) {
@@ -24,7 +24,7 @@ function solve() {
         muti,
         div - 1,
         cnt + 1,
-        Math.sign(sum) * Math.floor(Math.abs(sum) / numList[cnt])
+        Math.trunc(sum / numList[cnt])
       );
     }
   }
