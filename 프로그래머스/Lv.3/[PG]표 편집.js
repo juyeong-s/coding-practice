@@ -1,6 +1,6 @@
 function solution(n, k, cmd) {
   const stack = [];
-  const state = Array.from({ length: n }, () => true);
+  const answer = Array.from({ length: n }, () => "O");
   const list = Array.from({ length: n }, (_, index) => [index - 1, index + 1]);
   list[n - 1][1] = -1;
 
@@ -17,7 +17,7 @@ function solution(n, k, cmd) {
   function deleteNode(k) {
     let [prev, next] = list[k];
     stack.push([k, prev, next]);
-    state[k] = false;
+    answer[k] = "X";
 
     if (next === -1) {
       if (prev !== -1) list[prev][1] = next;
@@ -34,7 +34,7 @@ function solution(n, k, cmd) {
     const [node, prev, next] = stack.pop();
     if (prev !== -1) list[prev][1] = node;
     if (next !== -1) list[next][0] = node;
-    state[node] = true;
+    answer[node] = "O";
   }
 
   for (const item of cmd) {
@@ -54,13 +54,7 @@ function solution(n, k, cmd) {
         break;
     }
   }
-
-  let answer = "";
-  for (const value of state) {
-    if (value) answer += "O";
-    else answer += "X";
-  }
-  return answer;
+  return answer.join("");
 }
 
 console.log(
