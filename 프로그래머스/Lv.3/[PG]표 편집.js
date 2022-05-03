@@ -1,7 +1,7 @@
 function solution(n, k, cmd) {
   const stack = [];
   const state = Array.from({ length: n }, () => true);
-  const list = Array.from({ length: n }, (el, index) => [index - 1, index + 1]);
+  const list = Array.from({ length: n }, (_, index) => [index - 1, index + 1]);
   list[n - 1][1] = -1;
 
   function upNode(k, row) {
