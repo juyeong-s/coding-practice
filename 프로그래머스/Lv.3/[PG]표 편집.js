@@ -15,7 +15,7 @@ function solution(n, k, cmd) {
   }
 
   function deleteNode(k) {
-    let [prev, next] = list[k];
+    const [prev, next] = list[k];
     stack.push([k, prev, next]);
     answer[k] = "X";
 
