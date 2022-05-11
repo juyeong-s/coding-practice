@@ -6,7 +6,6 @@ export const request = async (nodeId) => {
     const response = await fetch(`${API_END_POINT}/${nodeId || ""}`, {
       method: "GET",
     });
-    console.log(response);
     if (response.ok) return response.json();
     else throw new Error("error");
   } catch (e) {

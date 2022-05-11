@@ -17,14 +17,15 @@ export default function ImageView({ $app, initialState }) {
       </div>
     `;
     this.$target.style.display = this.state ? "block" : "none";
-    this.$target.addEventListener("click", (e) => {
-      e.target === this.$target
-        ? this.$target.classList.remove("ImageViewer")
-        : false;
-      this.$target.innerHTML = "";
-      this.$target.style.display = "none";
-    });
   };
+
+  this.$target.addEventListener("click", (e) => {
+    e.target === this.$target["Modal"]
+      ? this.$target.classList.remove("ImageViewer")
+      : false;
+    this.$target.innerHTML = "";
+    this.$target.style.display = "none";
+  });
 
   this.render();
   $app.appendChild(this.$target);

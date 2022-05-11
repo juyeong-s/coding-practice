@@ -1,5 +1,4 @@
 export default function Nodes({ $app, state, onClick, onBackClick }) {
-  console.log($app, state, onClick);
   this.state = state;
   this.onClick = onClick;
   this.onBackClick = onBackClick;
@@ -37,24 +36,20 @@ export default function Nodes({ $app, state, onClick, onBackClick }) {
       ${template}
     `;
 
-    nodes.querySelectorAll(".Node").forEach(($node) => {
-      $node.addEventListener("click", (e) => {
-        const { nodeId } = e.target.dataset;
-        if (nodeId) {
-          const selectedNode = this.state.nodes.find(
-            (node) => node.id === nodeId
-          );
-          if (selectedNode) {
-            this.onClick(selectedNode);
-          }
-        } else {
-          this.onBackClick();
-        }
-      });
-    });
-
     $app.appendChild(nodes);
   };
+
+  nodes.addEventListener("click", (e) => {
+    const { nodeId } = e.target.closest(".Node").dataset;
+    if (nodeId) {
+      const selectedNode = this.state.nodes.find((node) => node.id === nodeId);
+      if (selectedNode) {
+        this.onClick(selectedNode);
+      }
+    } else {
+      this.onBackClick();
+    }
+  });
 
   this.render();
 }
