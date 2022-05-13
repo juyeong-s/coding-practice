@@ -1,4 +1,4 @@
-function solve() {
+function solve1() {
   let cnt = 1;
   for (let i = 2; i <= +n; i++) {
     const str = i + "";
@@ -18,6 +18,21 @@ function solve() {
   return cnt;
 }
 
+function solve2() {
+  let cnt = 0;
+  for (let i = 1; i <= +n; i++) {
+    let hundNum = Math.floor((i % 1000) / 100);
+    let tenNum = Math.floor((i % 100) / 10);
+    let oneNum = i % 10;
+
+    if (i < 100) cnt++;
+    else if (i >= 100 && i < 1000) {
+      if (hundNum - tenNum === tenNum - oneNum) cnt++;
+    }
+  }
+  return cnt;
+}
+
 const filePath =
   process.platform === "linux" ? "/dev/stdin" : "백준/silver/1065/testcase.txt";
 const input = require("fs")
@@ -26,4 +41,5 @@ const input = require("fs")
   .trim()
   .split("\n");
 const n = input[0];
-console.log(solve());
+console.log(solve1());
+console.log(solve2());
