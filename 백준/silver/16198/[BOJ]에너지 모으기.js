@@ -1,6 +1,6 @@
 function solve() {
   let answer = 0;
-  function deleteMarble(totalEnergy, marble) {
+  function calcEnergyWeight(totalEnergy, marble) {
     const len = marble.length;
     if (len === 2) {
       answer = Math.max(answer, totalEnergy);
@@ -8,7 +8,7 @@ function solve() {
     }
 
     for (let i = 1; i <= len - 2; i++) {
-      deleteMarble(
+      calcEnergyWeight(
         totalEnergy + marble[i - 1] * marble[i + 1],
         marble.filter((_, index) => index !== i)
       );
@@ -16,7 +16,7 @@ function solve() {
   }
 
   for (let i = 1; i <= n - 2; i++) {
-    deleteMarble(
+    calcEnergyWeight(
       marble[i - 1] * marble[i + 1],
       marble.filter((_, index) => index !== i)
     );
