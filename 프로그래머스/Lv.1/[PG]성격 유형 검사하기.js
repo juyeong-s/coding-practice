@@ -7,7 +7,7 @@ function solution1(survey, choices) {
     6: [1, 2],
     7: [1, 3],
   };
-  const result = {
+  const score = {
     R: 0,
     T: 0,
     C: 0,
@@ -26,46 +26,31 @@ function solution1(survey, choices) {
     const [idx, score] = scoreTable[answer];
     const selectType = types[idx];
 
-    result[selectType] += score;
+    score[selectType] += score;
   }
 
-  return decideType(result);
+  return decideType(score);
 }
 
-const decideType = (result) => {
-  let personality = "";
-
-  if (result["R"] === result["T"]) personality += "R";
-  else if (result["T"] > result["R"]) personality += "T";
-  else personality += "R";
-
-  if (result["C"] === result["F"]) personality += "C";
-  else if (result["F"] > result["C"]) personality += "F";
-  else personality += "C";
-
-  if (result["J"] === result["M"]) personality += "J";
-  else if (result["M"] > result["J"]) personality += "M";
-  else personality += "J";
-
-  if (result["A"] === result["N"]) personality += "A";
-  else if (result["N"] > result["A"]) personality += "N";
-  else personality += "A";
-
-  return personality;
+const decideType = (score) => {
+  const { R, T, C, F, J, M, A, N } = score;
+  return `${R >= T ? "R" : "T"}${C >= F ? "C" : "F"}${J >= M ? "J" : "M"}${
+    A >= N ? "A" : "N"
+  }`;
 };
 
 function solution2(survey, choices) {
-  const mbti = {};
+  const score = {};
   const types = ["RT", "CF", "JM", "AN"];
 
-  types.forEach((type) => type.split("").forEach((char) => (mbti[char] = 0)));
+  types.forEach((type) => type.split("").forEach((char) => (score[char] = 0)));
 
-  choices.forEach((choice, index) => {
-    const [disagree, agree] = survey[index];
-    mbti[choice > 4 ? agree : disagree] += Math.abs(choice - 4);
+  survey.forEach(([disagree, agree], index) => {
+    const choice = choices[index];
+    score[choice > 4 ? agree : disagree] += Math.abs(choice - 4);
   });
 
-  return types.map(([a, b]) => (mbti[b] > mbti[a] ? b : a)).join("");
+  return types.map(([a, b]) => (score[b] > score[a] ? b : a)).join("");
 }
 
 console.log(solution1(["AN", "CF", "MJ", "RT", "NA"], [5, 3, 2, 7, 5]));
