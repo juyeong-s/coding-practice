@@ -1,8 +1,8 @@
 function solution(commands) {
   const LEN = 51;
   let result = [];
-  let content = Array.from({ length: LEN }, () => Array.from({ length: LEN }, () => "EMPTY"));
-  let merged = Array.from({ length: LEN }, (_, idx1) =>
+  let contentTable = Array.from({ length: LEN }, () => Array.from({ length: LEN }, () => "EMPTY"));
+  let mergedTable = Array.from({ length: LEN }, (_, idx1) =>
     Array.from({ length: LEN }, (_, idx2) => [idx1, idx2])
   );
 
@@ -13,64 +13,64 @@ function solution(commands) {
   function updateValue(value1, value2) {
     for (let i = 1; i < LEN; i++) {
       for (let j = 1; j < LEN; j++) {
-        if (content[i][j] === value1) content[i][j] = value2;
+        if (contentTable[i][j] === value1) contentTable[i][j] = value2;
       }
     }
   }
 
   function updateNewValue(r, c, newValue) {
-    const [mR, mC] = merged[r][c];
+    const [mR, mC] = mergedTable[r][c];
 
     for (let i = 1; i < LEN; i++) {
       for (let j = 1; j < LEN; j++) {
-        const [r, c] = merged[i][j];
-        if (rcCorrect(r, c, mR, mC)) content[i][j] = newValue;
+        const [r, c] = mergedTable[i][j];
+        if (rcCorrect(r, c, mR, mC)) contentTable[i][j] = newValue;
       }
     }
   }
 
   function merge(r1, c1, r2, c2) {
-    const [mR1, mC1] = merged[r1][c1];
-    const [mR2, mC2] = merged[r2][c2];
+    const [mR1, mC1] = mergedTable[r1][c1];
+    const [mR2, mC2] = mergedTable[r2][c2];
     if (rcCorrect(r1, c1, r2, c2) || rcCorrect(mR1, mC1, mR2, mC2)) return;
 
-    const value1 = content[r1][c1];
-    const value2 = content[r2][c2];
+    const value1 = contentTable[r1][c1];
+    const value2 = contentTable[r2][c2];
     const overWriteValue = value1 === "EMPTY" ? value2 : value1;
 
     for (let i = 1; i < LEN; i++) {
       for (let j = 1; j < LEN; j++) {
-        const [r, c] = merged[i][j];
-        if (rcCorrect(r, c, mR2, mC2)) merged[i][j] = [mR1, mC1];
+        const [r, c] = mergedTable[i][j];
+        if (rcCorrect(r, c, mR2, mC2)) mergedTable[i][j] = [mR1, mC1];
       }
     }
 
     for (let i = 1; i < LEN; i++) {
       for (let j = 1; j < LEN; j++) {
-        const [r, c] = merged[i][j];
-        if (rcCorrect(r, c, mR1, mC1)) content[i][j] = overWriteValue;
+        const [r, c] = mergedTable[i][j];
+        if (rcCorrect(r, c, mR1, mC1)) contentTable[i][j] = overWriteValue;
       }
     }
   }
 
   function unmerge(r, c) {
-    const cValue = content[r][c];
-    const [mR, mC] = merged[r][c];
+    const cValue = contentTable[r][c];
+    const [mR, mC] = mergedTable[r][c];
 
     for (let i = 1; i < LEN; i++) {
       for (let j = 1; j < LEN; j++) {
-        const [r, c] = merged[i][j];
+        const [r, c] = mergedTable[i][j];
         if (rcCorrect(r, c, mR, mC)) {
-          merged[i][j] = [i, j];
-          content[i][j] = "EMPTY";
+          mergedTable[i][j] = [i, j];
+          contentTable[i][j] = "EMPTY";
         }
       }
     }
-    content[r][c] = cValue;
+    contentTable[r][c] = cValue;
   }
 
   function print(r, c) {
-    result.push(content[r][c]);
+    result.push(contentTable[r][c]);
   }
 
   commands.forEach((command) => {
