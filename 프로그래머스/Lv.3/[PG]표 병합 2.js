@@ -13,7 +13,7 @@ function solution(commands) {
     const root1 = find(x1);
     const root2 = find(x2);
 
-    if (values[root1] === "EMPTY" && values[root2]) {
+    if (values[root1] === "EMPTY") {
       parent[root1] = root2;
       values[root1] = values[root2];
     } else {
@@ -22,26 +22,8 @@ function solution(commands) {
     }
   }
 
-  function unmerge(r1, c1) {
-    const x = r1 * LEN + c1;
-    const rootX = find(x);
-    const valueX = values[rootX];
-
-    const nodes = [];
-    for (let i = 0; i < LEN * LEN; i++) {
-      if (find(i) === rootX) nodes.push(i);
-    }
-
-    for (const node of nodes) {
-      values[node] = "EMPTY";
-      parent[node] = node;
-    }
-
-    values[x] = valueX;
-  }
-
   function replace(value1, value2) {
-    for (let i = 0; i < LEN * LEN; i++) {
+    for (let i = 1; i < LEN * LEN; i++) {
       if (values[i] === value1) values[i] = value2;
     }
   }
@@ -56,6 +38,24 @@ function solution(commands) {
     const x1 = r1 * LEN + c1;
     const x2 = r2 * LEN + c2;
     if (parent[x1] !== parent[x2]) union(x1, x2);
+  }
+
+  function unmerge(r1, c1) {
+    const x = r1 * LEN + c1;
+    const rootX = find(x);
+    const valueX = values[rootX];
+
+    const nodes = [];
+    for (let i = 1; i < LEN * LEN; i++) {
+      if (find(i) === rootX) nodes.push(i);
+    }
+
+    for (const node of nodes) {
+      values[node] = "EMPTY";
+      parent[node] = node;
+    }
+
+    values[x] = valueX;
   }
 
   function print(r, c) {
@@ -128,6 +128,9 @@ console.log(
     "MERGE 2 2 2 1",
     "MERGE 2 1 1 1",
     "PRINT 1 1",
+    "PRINT 1 2",
+    "PRINT 2 1",
+    "PRINT 2 2",
     "UNMERGE 2 2",
     "PRINT 1 1",
   ])
