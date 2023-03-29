@@ -11,15 +11,15 @@ function solution(board, skill) {
     accSum[r2 + 1][c2 + 1] += type === 1 ? -degree : degree; // 오른쪽 아래
   });
 
-  for (let i = 0; i < r; i++) {
-    for (let j = 0; j < c; j++) {
-      accSum[i][j + 1] += accSum[i][j];
-    }
-  }
-
   for (let j = 0; j < c; j++) {
     for (let i = 0; i < r; i++) {
       accSum[i + 1][j] += accSum[i][j];
+    }
+  }
+
+  for (let i = 0; i < r; i++) {
+    for (let j = 0; j < c; j++) {
+      accSum[i][j + 1] += accSum[i][j];
     }
   }
 
@@ -27,8 +27,7 @@ function solution(board, skill) {
 
   for (let i = 0; i < r; i++) {
     for (let j = 0; j < c; j++) {
-      board[i][j] += accSum[i][j];
-      if (board[i][j] > 0) result++;
+      if (board[i][j] + accSum[i][j] > 0) result++;
     }
   }
 
