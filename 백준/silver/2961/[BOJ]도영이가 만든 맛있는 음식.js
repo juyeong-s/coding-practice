@@ -25,7 +25,7 @@ function solve(n, ingredient) {
   return answer;
 }
 
-const filePath = process.platform === "linux" ? "/dev/stdin" : "백준/Bitmask/2961/testcase.txt";
+const filePath = process.platform === "linux" ? "/dev/stdin" : "백준/silver/2961/testcase.txt";
 const input = require("fs").readFileSync(filePath).toString().trim().split("\n");
 const n = +input[0];
 const ingredient = input.slice(1).map((el) => el.split(" ").map((n) => +n));
