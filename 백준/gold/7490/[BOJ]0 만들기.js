@@ -2,10 +2,8 @@ function solve(cnt, Ns) {
   const operator = [" ", "+", "-"];
   let answer = "";
 
-  const compositeByPrevOp = (prevOp, prevNum, sum) => {
-    prevOp === "+" ? (sum += +prevNum) : (sum -= +prevNum);
-    return sum;
-  };
+  const compositeByPrevOp = (prevOp, prevNum, sum) =>
+    prevOp === "+" ? sum + +prevNum : sum - +prevNum;
 
   const calc = (n, opStr) => {
     let sum = 0;
@@ -18,7 +16,6 @@ function solve(cnt, Ns) {
       if (op === "+") {
         if (opStr[i] !== " ") {
           if (prevNum) sum = compositeByPrevOp(prevOp, prevNum, sum);
-
           sum += i;
           prevNum = "";
         } else {
@@ -32,7 +29,6 @@ function solve(cnt, Ns) {
       } else if (op === "-") {
         if (opStr[i] !== " ") {
           if (prevNum) sum = compositeByPrevOp(prevOp, prevNum, sum);
-
           sum -= i;
           prevNum = "";
         } else {
