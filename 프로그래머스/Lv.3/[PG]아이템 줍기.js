@@ -10,7 +10,7 @@ function solution(rectangle, characterX, characterY, itemX, itemY) {
   const isValid = (x, y) => x > 0 && x < n && y > 0 && y < n;
 
   // 사각형 안에 있는 점인지
-  const isInnerRectangle = (x, y) => {
+  const isInRectanglePoint = (x, y) => {
     for (const [lx, ly, rx, ry] of rectangle) {
       if (lx < x && x < rx && ly < y && y < ry) return true;
     }
@@ -18,27 +18,59 @@ function solution(rectangle, characterX, characterY, itemX, itemY) {
   };
 
   // 보더 위를 지나가는지
-  const isBetweenBorder = (prevX, prevY, nextX, nextY) => {
+  const isPassOverBorder = (prevX, prevY, nextX, nextY) => {
     for (const [lx, ly, rx, ry] of rectangle) {
-      if (lx === prevX && lx === nextX && ly <= prevY && nextY <= ry && ry >= prevY && nextY >= ly)
+      if (
+        lx === prevX &&
+        lx === nextX &&
+        ly <= prevY &&
+        prevY <= ry &&
+        ly <= nextY &&
+        nextY <= ry
+      )
         return true; // 왼쪽 테두리
-      if (ry === prevY && ry === nextY && lx <= prevX && nextX <= rx && rx >= prevX && nextX >= lx)
+      if (
+        ry === prevY &&
+        ry === nextY &&
+        lx <= prevX &&
+        rx >= prevX &&
+        lx <= nextX &&
+        nextX <= rx
+      )
         return true; // 위 테두리
-      if (rx === prevX && rx === nextX && ly <= prevY && nextY <= ry && ry >= prevY && nextY >= ly)
+      if (
+        rx === prevX &&
+        rx === nextX &&
+        ly <= prevY &&
+        ry >= prevY &&
+        ly <= nextY &&
+        nextY <= ry
+      )
         return true; // 오른쪽 테두리
-      if (ly === prevY && ly === nextY && lx <= prevX && nextX <= rx && rx >= prevX && nextX >= lx)
+      if (
+        ly === prevY &&
+        ly === nextY &&
+        lx <= prevX &&
+        rx >= prevX &&
+        lx <= nextX &&
+        nextX <= rx
+      )
         return true; // 아래 테두리
     }
     return false;
   };
 
   // 보더를 지나가지만 다른 도형을 가로질러갈 경우
-  const isInnerCross = (prevX, prevY, nextX, nextY) => {
+  const isCross = (prevX, prevY, nextX, nextY) => {
     for (const [lx, ly, rx, ry] of rectangle) {
-      if (prevX === nextX && lx < prevX && prevX < rx && ly === nextY && prevY === ry) return true; // 위->아래 가로지름
-      if (prevX === nextX && lx < prevX && prevX < rx && ly === prevY && nextY === ry) return true; // 아래->위 가로지름
-      if (prevY === nextY && ly < prevY && prevY < ry && lx === prevX && nextX === rx) return true; // 왼->오른 가로지름
-      if (prevY === nextY && ly < prevY && prevY < ry && lx === nextX && prevX === rx) return true; // 오른->왼 가로지름
+      if (prevX === nextX && lx < prevX && prevX < rx && ly === nextY && prevY === ry)
+        return true; // 위->아래 가로지름
+      if (prevX === nextX && lx < prevX && prevX < rx && ly === prevY && nextY === ry)
+        return true; // 아래->위 가로지름
+      if (prevY === nextY && ly < prevY && prevY < ry && lx === prevX && nextX === rx)
+        return true; // 왼->오른 가로지름
+      if (prevY === nextY && ly < prevY && prevY < ry && lx === nextX && prevX === rx)
+        return true; // 오른->왼 가로지름
     }
     return false;
   };
@@ -56,9 +88,9 @@ function solution(rectangle, characterX, characterY, itemX, itemY) {
       if (
         isValid(mx, my) &&
         !visitied[mx][my] &&
-        !isInnerRectangle(mx, my) &&
-        isBetweenBorder(x, y, mx, my) &&
-        !isInnerCross(x, y, mx, my)
+        !isInRectanglePoint(mx, my) &&
+        isPassOverBorder(x, y, mx, my) &&
+        !isCross(x, y, mx, my)
       ) {
         visitied[mx][my] = true;
         dfs(mx, my, distance + 1);
