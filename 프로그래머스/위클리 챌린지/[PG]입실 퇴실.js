@@ -3,7 +3,7 @@ function solution(enter, leave) {
   let answer = new Array(enter.length + 1).fill(0);
   let room = [];
 
-  while (leave.length > 1) {
+  while (leave.length > 0) {
     const inId = enter.shift();
     if (inId) room.push(inId);
     if (room.length > 1) {
