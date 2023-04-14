@@ -39,7 +39,8 @@ function solve(n, x, roads) {
   return answer;
 }
 
-const filePath = process.platform === "linux" ? "/dev/stdin" : "백준/gold/1238/testcase.txt";
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : "백준/gold/1238/testcase.txt";
 const input = require("fs").readFileSync(filePath).toString().trim().split("\n");
 
 const [n, m, x] = input[0].split(" ").map((el) => +el);
